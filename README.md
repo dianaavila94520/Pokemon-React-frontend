@@ -99,24 +99,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## Adding soon a feature to download pokemon data and images directly t local machine
-
-Referenced files and symbols:
-- [pokemonTypeColors](http://_vscodecontentref_/9)
-- [skillCachePokemon](http://_vscodecontentref_/10)
-- [App.jsx](http://_vscodecontentref_/11)
-- [App.css](http://_vscodecontentref_/12)
-- [fanta.css](http://_vscodecontentref_/13)
-- [vite.config.js](http://_vscodecontentref_/14)
-- [index.html](http://_vscodecontentref_/15)
-- [PokeCard.jsx](http://_vscodecontentref_/16)
-- [TypeCard.jsx](http://_vscodecontentref_/17)
-- [Modal.jsx](http://_vscodecontentref_/18)
-- [SideNav.jsx](http://_vscodecontentref_/19)
-- [Header.jsx](http://_vscodecontentref_/20)
-- [fetchPokeMonNameArr.js](http://_vscodecontentref_/21)
-- [fetchPokeDataDetails.js](http://_vscodecontentref_/22)
-- [index.js](http://_vscodecontentref_/23)
-- [allCaches.js](http://_vscodecontentref_/24)
-
-You can further personalize the README with a demo link, screenshots, or your own content.
+## Adding soon a feature to download pokemon data and images directly to local machine
