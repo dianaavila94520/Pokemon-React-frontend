@@ -66,7 +66,6 @@ export default function SideNav(props) {
   <nav className={' ' + (!showSideMenu ? ' open' : '')}>
    <div className={'header ' + (!showSideMenu ? ' open' : '')}>
     <button onClick={handleToggleMenu} className="open-nav-button">
-     {console.log('btn')}
      <i className="fa-solid fa-arrow-left-long"></i>
     </button>
     <h1 className="text-gradient">Pokédex</h1>

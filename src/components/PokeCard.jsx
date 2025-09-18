@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Modal from './Modal';
 import TypeCard from './TypeCard';
+import scaleValue from '../utils/scaleValue';
 import { skillCachePokemon } from '../cache/allCaches';
 function PokeCard(props) {
  const { name, stats, types, moves, sprites } = props?.dataPokemonObj || {};
 
  const [skill, setSkill] = useState(null);
  const [loadingSkill, setloadingSkill] = useState(false);
-
+ const docRef = useRef(null);
  const fetchMoreSkillData = async (move, moveUrl) => {
   if (loadingSkill || !moveUrl || skillCachePokemon.has(move) === undefined) {
    console.log(setSkill(skillCachePokemon.get(move)));
@@ -51,6 +52,19 @@ function PokeCard(props) {
  function handleCloseModal() {
   setSkill(null);
  }
+ const maxVal = 5;
+ function handleDefPokeImgHover(ev) {
+  if (!docRef) return;
+
+  const mousePos = ev.clientX;
+  const imgPosLeft = ev.currentTarget.getBoundingClientRect().left;
+  const iconWidth = ev.currentTarget.getBoundingClientRect().width;
+  const cursorDist = ((mousePos - imgPosLeft) / iconWidth) * 100;
+  const offsetPix = scaleValue(cursorDist, [0, 1], [maxVal * -1, maxVal]);
+  docRef.current.style.setProperty('--default-img-left', `${offsetPix * -1}px`);
+  docRef.current.style.setProperty('--default-img-right', `${offsetPix}px`);
+  console.table(offsetPix, cursorDist * 100);
+ }
 
  return (
   <div className="poke-card">
@@ -76,71 +90,102 @@ function PokeCard(props) {
        return <TypeCard key={index} mytype={typeObj?.type} />;
       })}
      </div>
-
-     {sprites && (
-      <img
-       className="default-img"
-       src={sprites?.other?.['official-artwork']?.front_default}
-       alt={`${name}-front_default-image`}
-      />
-     )}
-     <div className="img-container">
-      {sprites?.front_shiny_female && (
+     <div className="main-img-container">
+      {sprites && (
        <img
-        className="default-img"
-        src={sprites.front_shiny_female}
-        alt={`${name}-front_shiny_female`}
-       />
-      )}
-      {sprites?.back_default && (
-       <img
-        className="default-img"
-        src={sprites.back_default}
-        alt={`${name}-back_default`}
-       />
-      )}
-      {sprites?.back_female && (
-       <img
-        className="default-img"
-        src={sprites.back_female}
-        alt={`${name}-back_female`}
-       />
-      )}
-      {sprites?.back_shiny && (
-       <img
-        className="default-img"
-        src={sprites.back_shiny}
-        alt={`${name}-back_shiny`}
-       />
-      )}
-      {sprites?.back_shiny_female && (
-       <img
-        className="default-img"
-        src={sprites.back_shiny_female}
-        alt={`${name}-back_shiny_female`}
-       />
-      )}
-      {sprites?.front_default && (
-       <img
-        className="default-img"
-        src={sprites.front_default}
-        alt={`${name}-front_default`}
-       />
-      )}
-      {sprites?.front_female && (
-       <img
-        className="default-img"
-        src={sprites.front_female}
-        alt={`${name}-front_female`}
-       />
-      )}
-      {sprites?.front_shiny && (
-       <img
-        className="default-img"
+        className="main-default-img"
         src={sprites?.other?.['official-artwork']?.front_default}
-        alt={`${name}-front_shiny`}
+        alt={`${name}-front_default-image`}
        />
       )}
+     </div>
+     <div className="img-container">
+      <ul ref={docRef}>
+       <li
+        onMouseMove={handleDefPokeImgHover}
+        className={sprites?.front_shiny_female ? 'default-img' : null}
+       >
+        <div>
+         {sprites?.front_shiny_female && (
+          <>
+           <img
+            src={sprites.front_shiny_female}
+            alt={`${name}-front_shiny_female`}
+           />
+           {/* <i class="fa-solid fa-download"></i> */}
+          </>
+         )}
+        </div>
+       </li>
+       <li
+        onMouseMove={handleDefPokeImgHover}
+        className={sprites?.back_default ? 'default-img' : null}
+       >
+        {sprites?.back_default && (
+         <img src={sprites.back_default} alt={`${name}-back_default`} />
+        )}
+       </li>
+       <li
+        onMouseMove={handleDefPokeImgHover}
+        className={sprites?.back_female ? 'default-img' : null}
+       >
+        {' '}
+        {sprites?.back_female && (
+         <img src={sprites.back_female} alt={`${name}-back_female`} />
+        )}{' '}
+       </li>
+       <li
+        onMouseMove={handleDefPokeImgHover}
+        className={sprites?.back_shiny ? 'default-img' : null}
+       >
+        {' '}
+        {sprites?.back_shiny && (
+         <img src={sprites.back_shiny} alt={`${name}-back_shiny`} />
+        )}{' '}
+       </li>
+       <li
+        onMouseMove={handleDefPokeImgHover}
+        className={sprites?.back_shiny_female ? 'default-img' : null}
+       >
+        {' '}
+        {sprites?.back_shiny_female && (
+         <img
+          src={sprites.back_shiny_female}
+          alt={`${name}-back_shiny_female`}
+         />
+        )}{' '}
+       </li>
+       <li
+        onMouseMove={handleDefPokeImgHover}
+        className={sprites?.front_default ? 'default-img' : null}
+       >
+        {' '}
+        {sprites?.front_default && (
+         <img src={sprites.front_default} alt={`${name}-front_default`} />
+        )}{' '}
+       </li>
+       <li
+        onMouseMove={handleDefPokeImgHover}
+        className={sprites?.front_female ? 'default-img' : null}
+       >
+        {' '}
+        {sprites?.front_female && (
+         <img src={sprites.front_female} alt={`${name}-front_female`} />
+        )}{' '}
+       </li>
+       <li
+        onMouseMove={handleDefPokeImgHover}
+        className={sprites?.front_shiny ? 'default-img' : null}
+       >
+        {' '}
+        {sprites?.front_shiny && (
+         <img
+          src={sprites?.other?.['official-artwork']?.front_default}
+          alt={`${name}-front_shiny`}
+         />
+        )}{' '}
+       </li>
+      </ul>
      </div>
 
      <h3>Sprites</h3>

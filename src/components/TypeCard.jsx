@@ -2,7 +2,6 @@ import { pokemonTypeColors } from './../utils/index';
 
 function TypeCard(props) {
  const { mytype } = props;
- console.log(mytype);
 
  const style = {
   color: pokemonTypeColors?.[mytype?.name]?.color,
